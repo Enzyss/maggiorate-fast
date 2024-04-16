@@ -65,15 +65,9 @@ async def verify(request: Request, phone_code: str = Form(...)):
     try:
         await client.sign_in(PHONE_NUMBER, code=phone_code,phone_code_hash=CODE_HASH)
         me = await client.get_me()
-        dialogs = await client.get_dialogs()
-        for dialog in dialogs:
-            chat = dialog.entity
-            if hasattr(chat, 'title'):
-                print(chat.id, ' ' , chat.title)
-                if chat.id == 1926114410:
-                    messages = await client.get_messages(chat.id, limit=10)
-                    for message in messages:
-                        print("Messaggio:", message.text)
+        client.add_event_handler(message_handler, events.NewMessage(incoming=True, chats=1742355648)) #1926114410
+# Mantieni il programma in esecuzione indefinitamente
+        await client.run_until_disconnected()
     except SessionPasswordNeededError:
         raise HTTPException(status_code=400, detail="È richiesta una password di sessione")
 
