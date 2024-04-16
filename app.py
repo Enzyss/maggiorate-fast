@@ -66,8 +66,12 @@ async def verify(request: Request, phone_code: str = Form(...)):
         await client.sign_in(PHONE_NUMBER, code=phone_code,phone_code_hash=CODE_HASH)
         me = await client.get_me()
         client.add_event_handler(message_handler, events.NewMessage(incoming=True, chats=1742355648)) #1926114410
-# Mantieni il programma in esecuzione indefinitamente
+        # Aggiungi il messaggio HTML per indicare il login riuscito
+        html_message = "<h1>Accesso riuscito!</h1>"
+        # Mantieni il programma in esecuzione indefinitamente
         await client.run_until_disconnected()
+        # Ritorna la risposta HTML dopo il login
+        return HTMLResponse(content=html_message)
     except SessionPasswordNeededError:
         raise HTTPException(status_code=400, detail="È richiesta una password di sessione")
 
