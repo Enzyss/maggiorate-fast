@@ -28,16 +28,16 @@ async def send_telegram_code():
                         messages = await client.get_messages(chat.id, limit=10)
                         for message in messages:
                             print("Messaggio:", message.text)
+        
+            await client.log_out()
         else:
             try:
-                await client.send_code_request(PHONE_NUMBER)
+                phone_code = await client.send_code_request(PHONE_NUMBER)
                 global CODE_HASH
-                CODE_HASH = await client.get_input("Inserisci il codice ricevuto tramite SMS: ")
-                print('SMS INVIATO: ', CODE_HASH)
+                CODE_HASH = phone_code.phone_code_hash
+                telegram_code_sent = True
             except SessionPasswordNeededError:
                 print("È richiesta una password di sessione.")
-
-        telegram_code_sent = True
 
 @app.get("/", response_class=HTMLResponse)
 async def index(request: Request):
@@ -59,15 +59,27 @@ async def index(request: Request):
 
 @app.post("/verify")
 async def verify(request: Request, phone_code: str = Form(...)):
-    if phone_code:
-        client = TelegramClient("session", API_ID, API_HASH)
-        await client.connect()
-        await client.sign_in(PHONE_NUMBER, code=phone_code, phone_code_hash=CODE_HASH)
+    global telegram_code_sent
+    if not telegram_code_sent:
+        raise HTTPException(status_code=400, detail="Codice SMS non inviato")
+
+    client = TelegramClient("session", API_ID, API_HASH)
+    await client.connect()
+    try:
+        await client.sign_in(PHONE_NUMBER, code=phone_code,phone_code_hash=CODE_HASH)
         me = await client.get_me()
-        return f"Autenticato come {me.first_name} {me.last_name}"
-    else:
-        raise HTTPException(status_code=400, detail="Codice non valido")
+        dialogs = await client.get_dialogs()
+        for dialog in dialogs:
+            chat = dialog.entity
+            if hasattr(chat, 'title'):
+                print(chat.id, ' ' , chat.title)
+                if chat.id == 1926114410:
+                    messages = await client.get_messages(chat.id, limit=10)
+                    for message in messages:
+                        print("Messaggio:", message.text)
+    except SessionPasswordNeededError:
+        raise HTTPException(status_code=400, detail="È richiesta una password di sessione")
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0")
+    uvicorn.run(app)
