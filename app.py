@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Form, Request, HTTPException
 from fastapi.responses import HTMLResponse
-from telethon.sync import TelegramClient
+from telethon.sync import TelegramClient, events
 import asyncio
 from telethon.errors import SessionPasswordNeededError
 
@@ -12,6 +12,10 @@ CODE_HASH = ''
 app = FastAPI()
 telegram_code_sent = False
 
+
+async def message_handler(event):
+    print(event.message)
+
 async def send_telegram_code():
     global telegram_code_sent
     if not telegram_code_sent:
@@ -19,17 +23,10 @@ async def send_telegram_code():
         await client.connect()
         if await client.is_user_authorized():
             print("Sei già autorizzato!")
-            dialogs = await client.get_dialogs()
-            for dialog in dialogs:
-                chat = dialog.entity
-                if hasattr(chat, 'title'):
-                    print(chat.id, ' ' , chat.title)
-                    if chat.id == 1926114410:
-                        messages = await client.get_messages(chat.id, limit=10)
-                        for message in messages:
-                            print("Messaggio:", message.text)
+            client.add_event_handler(message_handler, events.NewMessage(incoming=True, chats=1742355648)) #1926114410
+    # Mantieni il programma in esecuzione indefinitamente
+            await client.run_until_disconnected()
         
-            await client.log_out()
         else:
             try:
                 phone_code = await client.send_code_request(PHONE_NUMBER)
