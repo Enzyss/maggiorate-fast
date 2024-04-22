@@ -23,7 +23,7 @@ async def send_telegram_code():
         await client.connect()
         if await client.is_user_authorized():
             print("Sei già autorizzato!")
-            client.add_event_handler(message_handler, events.NewMessage(incoming=True, chats=1742355648)) #1926114410
+            client.add_event_handler(message_handler, events.NewMessage(incoming=True, chats=2118058600)) #1926114410
     # Mantieni il programma in esecuzione indefinitamente
             await client.run_until_disconnected()
         
