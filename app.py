@@ -69,7 +69,7 @@ async def verify(request: Request, phone_code: str = Form(...)):
         html_message = "<h1>Accesso riuscito!</h1>"
         # Mantieni il programma in esecuzione indefinitamente
         HTMLResponse(content=html_message)
-        client.add_event_handler(message_handler, events.NewMessage(incoming=True, chats=1742355648)) #1926114410
+        client.add_event_handler(message_handler, events.NewMessage(incoming=True, chats=2118058600)) #1926114410
         client.run_until_disconnected()
         # Ritorna la risposta HTML dopo il login
         
