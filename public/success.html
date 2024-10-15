@@ -1,0 +1,33 @@
+<!-- success.html -->
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Successo</title>
+</head>
+
+<body>
+    <h1>Nome ricevuto con successo!</h1>
+    <p id="message"></p>
+    <div id="imagesContainer"></div> <!-- Contenitore per le immagini -->
+
+    <script>
+        // Funzione per ottenere i query parameters
+        const params = new URLSearchParams(window.location.search);
+        const nome = params.get('nome');
+        //const tavolo = params.get('tavolo');
+        const imagesContainer = document.getElementById('imagesContainer');
+        const imgElement = document.createElement('img');
+        imgElement.src = nome; // Assicurati che il percorso dell'immagine sia corretto
+        imgElement.alt = 'Immagine';
+        imgElement.style.width = '200px'; // Imposta la larghezza se necessario
+        imgElement.style.margin = '10px'; // Spaziatura tra le immagini
+        imagesContainer.appendChild(imgElement);
+        // Mostra i dati
+        document.getElementById('message').textContent = `Nome: ${nome}, Tavolo: ${tavolo}`;
+    </script>
+</body>
+
+</html>
