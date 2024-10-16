@@ -15,19 +15,6 @@ const PORT = 3000;
 mongoose.connect(uri).then(() => {
   console.log("Database connected successfully.");
 
-  const nomi = ['Ida', 'Enzo', 'Mag', 'Dominick', 'Elisa', 'Laura', 'Clelia', 'Rita', 'Gianmarco'];
-  const tavolo = 'pulcinella';
-
-  const records = nomi.map(nome => ({
-    nome: nome.toUpperCase(),
-    tavolo: tavolo
-  }));
-
-  // Inserimento dei record
-  const result = User.insertMany(records);
-  console.log(`${result.length} record inseriti con successo:`);
-  console.log(result); // Stampa i record inseriti
-
   app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
   });
