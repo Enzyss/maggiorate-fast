@@ -11,7 +11,7 @@ const app = express();
 
 // URI MongoDB Atlas - Sostituisci <username>, <password>, e <database> con i tuoi dettagli
 const uri = "mongodb+srv://Enzysss:Immalisa123@laureaida.jtomo.mongodb.net/?retryWrites=true&w=majority&appName=LaureaIda";  // Sostituisci con la tua URI di connessione MongoDB Atlas
-const PORT = 3000;
+const PORT = 10000;
 mongoose.connect(uri).then(() => {
   console.log("Database connected successfully.");
   app.listen(PORT, () => {
