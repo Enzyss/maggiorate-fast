@@ -14,6 +14,20 @@ const uri = "mongodb+srv://Enzysss:Immalisa123@laureaida.jtomo.mongodb.net/?retr
 const PORT = 3000;
 mongoose.connect(uri).then(() => {
   console.log("Database connected successfully.");
+
+  const nomi = ['Ida', 'Enzo', 'Mag', 'Dominick', 'Elisa', 'Laura', 'Clelia', 'Rita', 'Gianmarco'];
+  const tavolo = 'pulcinella';
+
+  const records = nomi.map(nome => ({
+    nome: nome.toUpperCase(),
+    tavolo: tavolo
+  }));
+
+  // Inserimento dei record
+  const result = User.insertMany(records);
+  console.log(`${result.length} record inseriti con successo:`);
+  console.log(result); // Stampa i record inseriti
+
   app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
   });
@@ -47,7 +61,7 @@ app.post('/api/submit', async (req, res) => {
   console.log('Nome ricevuto:' + req.body.nome);
   //res.send('Nome ricevuto con successo!');
 
-  const userData = nome ? await UserModel.find({ nome: nome }) : await UserModel.find();
+  const userData = nome ? await UserModel.find({ nome: nome.toUpperCase() }) : await UserModel.find();
 
   // Send the user data as a JSON response
   //console.log(json(userData));
