@@ -36,6 +36,7 @@
         // Funzione per ottenere i query parameters
         const params = new URLSearchParams(window.location.search);
         const nome = params.get('nome');
+        document.body.style.backgroundImage = nome;
         //const tavolo = params.get('tavolo');
         const imagesContainer = document.getElementById('imagesContainer');
         const imgElement = document.createElement('img');
@@ -47,7 +48,7 @@
 
         const titolo = params.get('titolo');
         // Mostra i dati
-        document.getElementById('message').textContent = titolo;
+        //document.getElementById('message').textContent = titolo;
     </script>
 </body>
 
