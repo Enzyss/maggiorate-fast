@@ -58,7 +58,7 @@ app.post('/api/submit', async (req, res) => {
   let image;
   let titolo;
   if (tavolo == 'pulcinella') {
-    image = 'pulcinella.png';
+    image = 'pulcinella1.png';
     titolo = 'Dicette Pulicinella: "mangiammo e bevimmo finchè ce uoglio a \'sta lucerna';
   } else if (tavolo == 'corno') {
     image = 'corno.png';
