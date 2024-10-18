@@ -37,16 +37,17 @@
         const params = new URLSearchParams(window.location.search);
         const nome = params.get('nome');
         document.body.style.backgroundImage = nome;
+        console.log(nome);
         //const tavolo = params.get('tavolo');
-        const imagesContainer = document.getElementById('imagesContainer');
-        const imgElement = document.createElement('img');
-        imgElement.src = nome; // Assicurati che il percorso dell'immagine sia corretto
-        imgElement.alt = 'Immagine';
-        imgElement.style.width = '200px'; // Imposta la larghezza se necessario
-        imgElement.style.margin = '10px'; // Spaziatura tra le immagini
-        imagesContainer.appendChild(imgElement);
+        //const imagesContainer = document.getElementById('imagesContainer');
+        //const imgElement = document.createElement('img');
+        //imgElement.src = nome; // Assicurati che il percorso dell'immagine sia corretto
+        //imgElement.alt = 'Immagine';
+        //imgElement.style.width = '200px'; // Imposta la larghezza se necessario
+        //imgElement.style.margin = '10px'; // Spaziatura tra le immagini
+        // imagesContainer.appendChild(imgElement);
 
-        const titolo = params.get('titolo');
+        //const titolo = params.get('titolo');
         // Mostra i dati
         //document.getElementById('message').textContent = titolo;
     </script>
