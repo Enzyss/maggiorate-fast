@@ -21,7 +21,7 @@
             background-size: cover;
             /* Adatta l'immagine alla dimensione del viewport */
             background-position: center;
-            background-image: "pulcinella.png";
+            //background-image: url("pulcinella.png");
             /* Centra l'immagine */
             /*background-repeat: no-repeat;  */
             /* Non ripetere l'immagine */
@@ -37,7 +37,7 @@
         // Funzione per ottenere i query parameters
         const params = new URLSearchParams(window.location.search);
         const nome = params.get('nome');
-        //document.body.style.backgroundImage = nome;
+        document.body.style.backgroundImage = `url('${nome}')`;
         console.log(nome);
         //const tavolo = params.get('tavolo');
         //const imagesContainer = document.getElementById('imagesContainer');
