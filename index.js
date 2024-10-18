@@ -56,10 +56,15 @@ app.post('/api/submit', async (req, res) => {
   //await res.sendFile(path.join(__dirname, 'success.html'));
   const tavolo = userData[0]?.tavolo;
   let image;
-  if (tavolo == 'corno') {
+  let titolo;
+  if (tavolo == 'pulcinella') {
+    image = 'pulcinella.png';
+    titolo = 'Dicette Pulicinella: "mangiammo e bevimmo finchè ce uoglio a \'sta lucerna';
+  } else if (tavolo == 'corno') {
     image = 'corno.png';
+    titolo = 'Sciò, Sciò Ciucciuvè';
   }
-  res.redirect(`/success.html?nome=${encodeURIComponent(image)}`);
+  res.redirect(`/success.html?nome=${encodeURIComponent(image)}&titolo=${encodeURIComponent(titolo)}`);
 });
 
 

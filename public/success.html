@@ -25,8 +25,10 @@
         imgElement.style.width = '200px'; // Imposta la larghezza se necessario
         imgElement.style.margin = '10px'; // Spaziatura tra le immagini
         imagesContainer.appendChild(imgElement);
+
+        const titolo = params.get('titolo');
         // Mostra i dati
-        document.getElementById('message').textContent = `Nome: ${nome}, Tavolo: ${tavolo}`;
+        document.getElementById('message').textContent = titolo;
     </script>
 </body>
 
